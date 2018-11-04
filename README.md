@@ -14,9 +14,12 @@
   
   也就是说当一个类A中持有另外一个类B,当实例化的时候，需要实例化出A和B两个对象，然后把B的对象赋值给A</br>
 	这就是IOC容器负责对象组装的一个功能</br>
-- Spring的Bean配置
+- Spring的Bean配置</br>
+  Bean容器初始化过程</br>
+  1.涉及到2个基础的包：org.springframework.beans & org.springframework.context</br>
+  2.始化ApplicationContext的3种方式</br>
 - Spring的注入
   - 设值注入
   - 构造注入
 
-### Sping Bean
+### Sping Bean装配
