@@ -25,7 +25,7 @@
   - 也就是说当一个类A中持有另外一个类B,当实例化的时候，需要实例化出A和B两个对象，然后把B的对象赋值给A
     **这就是IOC容器负责对象组装的一个功能**
 
-![Spring IOC](..\images\Spring IOC.png)
+<img src="../images/Spring IOC.png"/>
 
 从上到下来说：
 
