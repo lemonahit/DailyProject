@@ -13,8 +13,8 @@ Spring Boot是Spring MVC的升级版，两者没有必然的联系；在学习Sp
 2. 备受关注，是下一代框架
 
    google在Spring Boot和Spring MVC在搜索量上的一个统计：
-
-![Image text](E:\大数据\学习笔记\Spring系列\02-2小时学会Spring Boot\pic\search.png)
+   
+   <img src="https://github.com/lemonahit/DailyProject/blob/master/images/search.png" />
 
 3. 微服务的入门级微框架
 
@@ -489,7 +489,7 @@ public class HelloController {
 
 需要使用postman这个工具进行测试：
 
-![Image text](E:\大数据\学习笔记\Spring系列\02-2小时学会Spring Boot\pic\POST请求.png)
+<img src="https://github.com/lemonahit/DailyProject/blob/master/images/POST请求.png" />
 
 #### 是否可以把请求方式给去除
 
@@ -681,7 +681,7 @@ spring:
 
 在Navicat fo MySQL工具中，创建对应的数据库，如下图所示：
 
-![Image text](E:\大数据\学习笔记\Spring系列\02-2小时学会Spring Boot\pic\create database.png)
+<img src="https://github.com/lemonahit/DailyProject/blob/master/images/create database.png" />
 
 创建Girl.java：
 
