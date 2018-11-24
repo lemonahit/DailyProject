@@ -684,7 +684,7 @@ spring:
 
 在Navicat fo MySQL工具中，创建对应的数据库，如下图所示：
 
-![Image text](../images/create database.png)
+![Image text](https://github.com/lemonahit/DailyProject/blob/master/images/create%20database.png)
 
 创建Girl.java：
 
