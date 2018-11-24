@@ -13,8 +13,8 @@ Spring Boot是Spring MVC的升级版，两者没有必然的联系；在学习Sp
 2. 备受关注，是下一代框架
 
    google在Spring Boot和Spring MVC在搜索量上的一个统计：
-   
-   <img src="https://github.com/lemonahit/DailyProject/blob/master/images/search.png" />
+
+![Image text](E:\大数据\学习笔记\Spring系列\02-2小时学会Spring Boot\pic\search.png)
 
 3. 微服务的入门级微框架
 
@@ -42,7 +42,7 @@ Spring Boot是Spring MVC的升级版，两者没有必然的联系；在学习Sp
 
 5. 事务管理
 
-6. 以用户信息系统为例子，贯穿整个案例进行理解
+6. 以用户信息系统为例子，贯穿课程
 
 ## 需要具备必要的前置知识
 
@@ -239,6 +239,7 @@ public class HelloController {
 - 获取前缀是girl的配置，这样子就不用每一次都写一次 `@Value` 的注解了
 - 使用 `@ConfigurationProperties` 这个注解就可以把对应的girl的前缀下面的属性都给映射过来，与yml文件相对应
 - 值得的注意是必须加上 `@Component` 这个注解，不然 `private GirlProperties girlProperties;`  会报错，报错内容为： `Could not autowire. No beans of 'GirlProperties' type found.`
+- `@Component、@Service、@Controller`等这些注解加上以后，被注解的类都会纳入到Spring中进行管理
 
 ```java
 @Component
@@ -489,7 +490,7 @@ public class HelloController {
 
 需要使用postman这个工具进行测试：
 
-<img src="https://github.com/lemonahit/DailyProject/blob/master/images/POST请求.png" />
+![Image text](E:\大数据\学习笔记\Spring系列\02-2小时学会Spring Boot\pic\POST请求.png)
 
 #### 是否可以把请求方式给去除
 
@@ -642,6 +643,8 @@ public class HelloController {
 
 ## 实战
 
+### 前置准备
+
 在pom.xml中引入依赖：
 
 ```xml
@@ -681,7 +684,7 @@ spring:
 
 在Navicat fo MySQL工具中，创建对应的数据库，如下图所示：
 
-<img src="https://github.com/lemonahit/DailyProject/blob/master/images/create database.png" />
+![Image text](E:\大数据\学习笔记\Spring系列\02-2小时学会Spring Boot\pic\create database.png)
 
 创建Girl.java：
 
@@ -760,4 +763,324 @@ ddl-auto中有许多属性可以填，例如：
 - none：什么都不做
 
 - validate：验证类里面的属性是否和表结构一致，不一致的话会报错
+
+### 获取女生列表(GET请求)
+
+GirlRepository.java：
+
+```java
+public interface GirlRepository extends JpaRepository<Girl, Integer>{
+}
+```
+
+JpaRepository<Girl, Integer> 中参数的意思：类名，ID类型
+
+
+
+GirlController.java：
+
+```java
+@RestController
+public class GirlController {
+
+    @Autowired
+    private GirlRepository girlRepository;
+	
+   /**
+     * 查询所有女生列表
+     * @return
+     */
+    @GetMa
+    @GetMapping(value = "/girls")
+    public List<Girl> girlList() {
+        return girlRepository.findAll();
+    }
+}
+```
+
+
+
+运行项目，使用Postman验证数据是否可以全部获取到：
+
+![Image text](E:\大数据\学习笔记\Spring系列\02-2小时学会Spring Boot\pic\获取女生列表.png)
+
+### 新增一个女生(POST请求)
+
+GirlController.java中添加：
+
+```java
+/**
+  * 添加一个女生
+  * @param cupSize
+  * @param age
+  * @return
+  */
+@PostMapping(value = "/girls")
+public Girl girlAdd(@RequestParam("cupSize") String cupSize,
+                    @RequestParam("age") Integer age) {
+    Girl girl = new Girl();
+    girl.setCupSize(cupSize);
+    girl.setAge(age);
+
+    return girlRepository.save(girl);
+}
+```
+
+运行项目，使用Postman进行数据添加：
+
+![Image text](E:\大数据\学习笔记\Spring系列\02-2小时学会Spring Boot\pic\新增一个女生.png)
+
+查看数据库数据是否添加成功：
+
+![Image text](E:\大数据\学习笔记\Spring系列\02-2小时学会Spring Boot\pic\新增一个女生数据库验证.png)
+
+### 通过Id查询一个女生(GET请求)
+
+GirlController.java中添加：
+
+```java
+/**
+  * 查询一个女生
+  * @param id
+  * @return
+  */
+@GetMapping(value = "/girls/{id}")
+public Girl girlFindOne(@PathVariable("id") Integer id) {
+    return girlRepository.findOne(id);
+}
+```
+
+运行项目，使用Postman进行查询：
+
+![Image text](E:\大数据\学习笔记\Spring系列\02-2小时学会Spring Boot\pic\查询一个女生.png)
+
+### 通过Id更新一个女生(PUT请求)
+
+GirlController.java中添加：
+
+```java
+/**
+  * 更新
+  * @param id
+  * @param cupSize
+  * @param age
+  * @return
+  */
+@PutMapping(value = "/girls/{id}")
+public Girl girlUpdate(@PathVariable("id") Integer id,
+                       @RequestParam("cupSize") String cupSize,
+                       @RequestParam("age") Integer age) {
+    Girl girl = new Girl();
+    girl.setId(id);
+    girl.setCupSize(cupSize);
+    girl.setAge(age);
+
+    return girlRepository.save(girl);
+}
+```
+
+save方法传入Girl对象，然后会根据我们所设置的主键：Id，去对应的数据中进行更新
+
+运行项目，使用Postman进行数据更新：
+
+![Image text](E:\大数据\学习笔记\Spring系列\02-2小时学会Spring Boot\pic\更新数据.png)
+
+**注意：** 这里得使用`x-www-form-urlencoded`，而不是使用`form-data`
+
+查看数据库数据是否更新成功：
+
+![Image text](E:\大数据\学习笔记\Spring系列\02-2小时学会Spring Boot\pic\更新数据数据库验证.png)
+
+
+
+### 通过Id删除一个女生(DELETE请求)
+
+GirlController.java中添加：
+
+```java
+/**
+  * 删除
+  * @param id
+  */
+@DeleteMapping(value = "/girls/{id}")
+public void girlDelete(@PathVariable("id") Integer id) {
+    girlRepository.delete(id);
+}
+```
+
+运行项目，使用Postman进行数据删除：
+
+![Image text](E:\大数据\学习笔记\Spring系列\02-2小时学会Spring Boot\pic\删除数据.png)
+
+**注意：** DELETE请求不会返回任何东西
+
+查看数据库数据是否删除成功：
+
+![Image text](E:\大数据\学习笔记\Spring系列\02-2小时学会Spring Boot\pic\删除数据数据库验证.png)
+
+### 查询的拓展 --- 通过年龄来进行查询
+
+GirlRepository.java：
+
+```java
+public interface GirlRepository extends JpaRepository<Girl, Integer>{
+
+    // 通过年龄来查询
+    public List<Girl> findByAge(Integer age);
+}
+```
+
+GirlController.java中添加：
+
+```java
+/**
+  * 通过年龄查询
+  * @param age
+  * @return
+  */
+@GetMapping(value = "/girls/age/{age}")
+public List<Girl> girlListByAge(@PathVariable("age") Integer age) {
+    return girlRepository.findByAge(age);
+}
+```
+
+运行项目，使用Postman进行数据查询：
+
+![Image text](E:\大数据\学习笔记\Spring系列\02-2小时学会Spring Boot\pic\通过年龄查询.png)
+
+# 事务管理
+
+## 普通的数据插入
+
+GirlService.java：
+
+```java
+@Service
+public class GirlService {
+
+    @Autowired
+    private GirlRepository girlRepository;
+
+    public void insertTwo() {
+        Girl girlA = new Girl();
+        girlA.setCupSize("A");
+        girlA.setAge(20);
+        girlRepository.save(girlA);
+
+        Girl girlB = new Girl();
+        girlB.setCupSize("B");
+        girlB.setAge(19);
+        girlRepository.save(girlB);
+    }
+}
+```
+
+GirlController.java中添加：
+
+```java
+@Autowired
+private GirlService girlService;
+
+@PostMapping(value = "/girls/two")
+public void girlTwo() {
+    girlService.insertTwo();
+}
+```
+
+运行项目，使用Postman进行数据插入：
+
+![Image text](E:\大数据\学习笔记\Spring系列\02-2小时学会Spring Boot\pic\事务-插入数据.png)
+
+查看数据库，验证数据是否插入成功：
+
+![Image text](E:\大数据\学习笔记\Spring系列\02-2小时学会Spring Boot\pic\事务-插入数据数据库验证.png)
+
+## 场景模拟
+
+现在需要有如下场景：
+
+- B这条数据插入失败，插入失败之后A这条也不能插入
+
+- 即两条数据要么同时成功，要么同时失败
+
+前置准备：
+
+- 修改girl表结构，如下图所示：
+
+  ![Image text](E:\大数据\学习笔记\Spring系列\02-2小时学会Spring Boot\pic\girl表结构修改.png)
+
+- 这样修改的原因：将cupSize的长度作为限制条件，使得有插入失败的场景
+
+GirlService.java：
+
+```java
+@Service
+public class GirlService {
+
+    @Autowired
+    private GirlRepository girlRepository;
+
+    public void insertTwo() {
+        Girl girlA = new Girl();
+        girlA.setCupSize("A");
+        girlA.setAge(18);
+        girlRepository.save(girlA);
+
+        Girl girlB = new Girl();
+        girlB.setCupSize("BBBB");
+        girlB.setAge(19);
+        girlRepository.save(girlB);
+    }
+}
+```
+
+使用Postman进行数据插入：
+
+![Image text](E:\大数据\学习笔记\Spring系列\02-2小时学会Spring Boot\pic\事务-报错信息.png)
+
+**有报错信息，说明有数据插入失败**
+
+去查看数据进行验证：
+
+![Image text](E:\大数据\学习笔记\Spring系列\02-2小时学会Spring Boot\pic\事务-插入数据1条.png)
+
+发现BBBB插入失败，但是A已经插入进来了，不是我们的期望结果
+
+## @Transactional注解的使用
+
+对于上述情况的解决方案：
+
+- 加上`@Transactional`注解
+
+GirlService.java：
+
+```java
+@Service
+public class GirlService {
+
+    @Autowired
+    private GirlRepository girlRepository;
+
+    @Transactional
+    public void insertTwo() {
+        Girl girlA = new Girl();
+        girlA.setCupSize("A");
+        girlA.setAge(18);
+        girlRepository.save(girlA);
+
+        Girl girlB = new Girl();
+        girlB.setCupSize("BBBB");
+        girlB.setAge(19);
+        girlRepository.save(girlB);
+    }
+}
+```
+
+重新运行项目，和上述操作一样，发现当BBBB这条记录因不符合规则而插入失败时，A这条记录也没有插入成功
+
+插入BBBB这条记录失败时候，相应的报错信息如下所示：
+
+```java
+com.mysql.jdbc.MysqlDataTruncation: Data truncation: Data too long for column 'cup_size' at row 1
+```
 
