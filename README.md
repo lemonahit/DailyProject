@@ -1,9 +1,5 @@
 # DailyProject
 
-- Spring
+- Spring学习笔记
 
-  Spring note
-
-- Spring Boot
-
-  Spring Boot note
+- Spring Boot学习笔记
