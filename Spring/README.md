@@ -155,3 +155,4 @@
 2. 初始化org.springframework.beans.factory.InitializingBean接口覆盖afterPropertiesSet方法的方式
 3. 全局默认初始化、销毁方法的配置的方式
 
+#### annotation
