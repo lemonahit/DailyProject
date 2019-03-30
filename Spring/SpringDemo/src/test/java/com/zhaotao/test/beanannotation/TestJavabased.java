@@ -2,6 +2,7 @@ package com.zhaotao.test.beanannotation;
 
 import com.zhaotao.beanannotation.javabased.MyDriverManager;
 import com.zhaotao.beanannotation.javabased.Store;
+import com.zhaotao.beanannotation.javabased.StringStore;
 import com.zhaotao.test.base.UnitTestBase;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,6 +37,11 @@ public class TestJavabased extends UnitTestBase {
 
         store = super.getBean("stringStore");
         System.out.println(store.hashCode());
+    }
+
+    @Test
+    public void testG() {
+        StringStore store = super.getBean("stringStoreTest");
     }
 
 }

@@ -1,0 +1,9 @@
+D:\IdeaProjects\spring-train\src\test\java\com\zhaotao\test\base\UnitTestBase.java
+D:\IdeaProjects\spring-train\src\test\java\com\zhaotao\test\autowiring\TestAutoWiring.java
+D:\IdeaProjects\spring-train\src\test\java\com\zhaotao\test\lifecycle\TestBeanLifeCycle.java
+D:\IdeaProjects\spring-train\src\test\java\com\zhaotao\test\bean\TestBeanScope.java
+D:\IdeaProjects\spring-train\src\test\java\com\zhaotao\test\ioc\injection\TestInjection.java
+D:\IdeaProjects\spring-train\src\test\java\com\zhaotao\test\aware\TestAware.java
+D:\IdeaProjects\spring-train\src\test\java\com\zhaotao\test\ioc\interfaces\TestOneInterface.java
+D:\IdeaProjects\spring-train\src\test\java\com\zhaotao\test\resource\TestResource.java
+D:\IdeaProjects\spring-train\src\test\java\com\zhaotao\test\beanannotation\TestBeanAnnotation.java

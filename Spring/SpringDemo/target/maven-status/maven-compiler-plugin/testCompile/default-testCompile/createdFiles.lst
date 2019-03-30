@@ -1,0 +1,9 @@
+com\zhaotao\test\ioc\injection\TestInjection.class
+com\zhaotao\test\lifecycle\TestBeanLifeCycle.class
+com\zhaotao\test\beanannotation\TestBeanAnnotation.class
+com\zhaotao\test\bean\TestBeanScope.class
+com\zhaotao\test\ioc\interfaces\TestOneInterface.class
+com\zhaotao\test\aware\TestAware.class
+com\zhaotao\test\resource\TestResource.class
+com\zhaotao\test\autowiring\TestAutoWiring.class
+com\zhaotao\test\base\UnitTestBase.class
