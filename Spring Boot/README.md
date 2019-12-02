@@ -669,7 +669,7 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/dbgirl
     username: root
-    password: zhaotao88016476
+    password: root
   jpa:
     hibernate:
       ddl-auto: create
